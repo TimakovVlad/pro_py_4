@@ -14,13 +14,34 @@ class FlatIterator:
                 return current
         raise StopIteration
 
-if __name__ == '__main__':
-    nnested_list = [
-        [['а', 'б', 'в'], 'г', 'д'],
-        ['a', 'b', 'c'],
-        ['d', 'e', 'f', 'h', False],
-        [1, 2, None],
+# if __name__ == '__main__':
+#     nnested_list = [
+#         [['а', 'б', 'в'], 'г', 'д'],
+#         ['a', 'b', 'c'],
+#         ['d', 'e', 'f', 'h', False],
+#         [1, 2, None],
+#     ]
+#
+#     for item in FlatIterator(nnested_list):
+#         print(item)
+
+def test_3():
+
+    list_of_lists_2 = [
+        [['a'], ['b', 'c']],
+        ['d', 'e', [['f'], 'h'], False],
+        [1, 2, None, [[[[['!']]]]], []]
     ]
 
-    for item in FlatIterator(nnested_list):
-        print(item)
+    for flat_iterator_item, check_item in zip(
+            FlatIterator(list_of_lists_2),
+            ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None, '!']
+    ):
+
+        assert flat_iterator_item == check_item
+
+    assert list(FlatIterator(list_of_lists_2)) == ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None, '!']
+
+
+if __name__ == '__main__':
+    test_3()
